@@ -5,8 +5,11 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Home from './pages/Home';
+
 import Nav from './components/Nav';
+import Home from './pages/Home';
+import Blog from './pages/Blog';
+import Post from './pages/Post';
 
 function App() {
   return (
@@ -17,6 +20,12 @@ function App() {
         </Route>
         <Route path="/">
           <Nav />
+          <Route exact path="/blog/:id">
+            <Post />
+          </Route>
+          <Route exact path="/blog">
+            <Blog />
+          </Route>
         </Route>
       </Switch>
     </Router>

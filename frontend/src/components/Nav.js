@@ -19,7 +19,7 @@ export default function Nav() {
         </div>
         <div className="navbar-menu">
           <div className="navbar-end">
-            <Link to="/" className="navbar-item is-active">Home</Link>
+            <Link to="/" className="navbar-item">Home</Link>
             <Link to="/blog" className="navbar-item">Blog</Link>
             <Link to="/cv" className="navbar-item">CV</Link>
             <span className="navbar-item">
