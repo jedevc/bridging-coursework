@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
-    "bulma": "^0.8.2"
+    "bulma": "^0.8.2",
+    "react-router-dom": "^5.2.0"
   }
 }

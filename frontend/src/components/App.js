@@ -1,9 +1,38 @@
 import React, { useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App() {
   return (
-    <Hero title="Justin Chadwell" subtitle="Bridging Coursework" />
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/">
+          <Nav />
+        </Route>
+      </Switch>
+    </Router>
   );
+}
+
+function Home() {
+  return (
+    <>
+      <Hero title="Justin Chadwell" subtitle="Bridging Coursework" />
+      <section className="section">
+        <div className="container">
+          <h1 className="title">Title</h1>
+          <p>Just some information</p>
+        </div>
+      </section>
+    </>
+  )
 }
 
 function Nav() {
@@ -19,17 +48,17 @@ function Nav() {
         </div>
         <div className="navbar-menu">
           <div className="navbar-end">
-            <a className="navbar-item is-active">Home</a>
-            <a className="navbar-item">Blog</a>
-            <a className="navbar-item">CV</a>
-            <a className="navbar-item">
-              <span className="button is-dark">
+            <Link to="/" className="navbar-item is-active">Home</Link>
+            <Link to="/blog" className="navbar-item">Blog</Link>
+            <Link to="/cv" className="navbar-item">CV</Link>
+            <span className="navbar-item">
+              <a className="button is-dark" href="https://github.com/jedevc">
                 <span className="icon">
                   <i className="fab fa-github"></i>
                 </span>
                 <span>GitHub</span>
-              </span>
-            </a>
+              </a>
+            </span>
           </div>
         </div>
       </div>
