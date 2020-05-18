@@ -9,7 +9,7 @@ export default function Blog() {
       let resp = await fetch("/api/posts");
       if (resp.ok) {
         let json = await resp.json();
-        setPosts(json["results"]);
+        setPosts(json);
       }
     }
     fetchData();
