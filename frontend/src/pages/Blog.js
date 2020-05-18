@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
-import { formatDate } from "../utils/date";
+import { PostHeader } from "../components/Post";
 
 export default function Blog() {
   const [posts, setPosts] = useState([]);
@@ -35,10 +35,8 @@ export default function Blog() {
 function PostPreview(props) {
   return (
     <div className="box">
-      <h2 className="title" style={{marginBottom: "0.6rem"}}>{props.post.title}</h2>
-      <div className="has-text-grey is-size-7" style={{marginBottom: "1.2rem"}}>
-        <time dateTime={props.post.published_date}>{formatDate(props.post.published_date)}</time>
-      </div>
+      <PostHeader title={props.post.title} date={props.post.published_date} />
+
       <p>{props.post.summary}</p>
     </div>
   )
