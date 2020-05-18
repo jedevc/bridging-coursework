@@ -10,6 +10,7 @@ import Nav from './components/Nav';
 import Home from './pages/Home';
 import Blog from './pages/Blog';
 import Post from './pages/Post';
+import Portfolio from './pages/Portfolio';
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
           </Route>
           <Route exact path="/blog">
             <Blog />
+          </Route>
+          <Route exact path="/cv">
+            <Portfolio />
           </Route>
         </Route>
       </Switch>
