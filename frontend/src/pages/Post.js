@@ -18,12 +18,18 @@ export default function Post() {
   }, [])
 
   return (
-    <div className="container">
-      <h1 className="title">{post.title}</h1>
+    <section className="section">
+      <div className="container">
+        <div className="columns">
+          <div className="column is-three-quarters-desktop is-three-quarters-tablet is-full-mobile">
+            <h1 className="title">{post.title}</h1>
 
-      <div className="content">
-        <ReactMarkdown source={post.content} />
+            <div className="content">
+              <ReactMarkdown source={post.content} />
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

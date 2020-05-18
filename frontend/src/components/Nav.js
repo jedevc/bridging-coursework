@@ -11,6 +11,8 @@ export default function Nav() {
     <nav className="navbar">
       <div className="container">
         <div className="navbar-brand">
+          <span className="navbar-item">
+          </span>
           <span className="navbar-burger burger" data-target="navbarMenuHeroB">
             <span></span>
             <span></span>
