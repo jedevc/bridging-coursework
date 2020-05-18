@@ -39,7 +39,7 @@ function PostPreview(props) {
           <time dateTime={props.post.published_date}>{formatDate(props.post.published_date)}</time>
         </div>
       </div>
-      <p>{props.post.text}</p>
+      <p>{props.post.summary}</p>
     </div>
   )
 }

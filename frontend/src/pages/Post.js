@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 
 export default function Post() {
   const [post, setPost] = useState({});
@@ -21,7 +22,7 @@ export default function Post() {
       <h1 className="title">{post.title}</h1>
 
       <div className="content">
-        {post.text}
+        <ReactMarkdown source={post.content} />
       </div>
     </div>
   );
