@@ -34,7 +34,7 @@ export default function Blog() {
 
 function PostPreview(props) {
   return (
-    <div className="box">
+    <div className="box" style={{marginBottom: "1rem"}}>
       <PostHeader title={props.post.title} date={props.post.published_date} />
 
       <p>{props.post.summary}</p>
