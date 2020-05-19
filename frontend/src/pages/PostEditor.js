@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from "react-router-dom";
 
 import Auth from "../components/Auth";
-import ContentContainer from '../components/ContentContainer';
 import PostEditorComponent from '../components/PostEditor';
+import ContentContainer from '../components/ContentContainer';
 
 export default function PostEditor() {
   const [post, setPost] = useState({});
@@ -49,6 +49,25 @@ export default function PostEditor() {
     history.push(`/blog/${id}`);
   }
 
+  const handleDelete = () => {
+    async function del() {
+      let token = localStorage.getItem('token');
+      let resp = await fetch(`/api/posts/${id}/`, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Authorization": `Token ${token}`
+        },
+      });
+      
+      if (resp.ok) {
+        history.push(`/blog/`);
+      }
+    }
+    del();
+  }
+
   if (Object.keys(post).length == 0) {
     return <></>;
   }
@@ -56,7 +75,20 @@ export default function PostEditor() {
   return (
     <>
       <Auth />
-      <PostEditorComponent post={post} onChange={handleChange} onCancel={handleCancel} onSubmit={handleSubmit} />
+      <section className="section">
+        <ContentContainer>
+          <PostEditorComponent post={post} onChange={handleChange} onCancel={handleCancel} onSubmit={handleSubmit} />
+          <br />
+          <div className="message is-danger">
+            <div className="message-body">
+              <p className="subtitle">Danger zone</p>
+              <p>Warning, these actions cannot be reversed.</p>
+              <br />
+              <button className="button is-danger" onClick={handleDelete}>Delete</button>
+            </div>
+          </div>
+        </ContentContainer>
+      </section>
     </>
   );
 }

@@ -11,6 +11,7 @@ import Home from './pages/Home';
 import Blog from './pages/Blog';
 import Post from './pages/Post';
 import PostEditor from './pages/PostEditor';
+import PostCreator from './pages/PostCreator';
 import Portfolio from './pages/Portfolio';
 import NotFound from './pages/NotFound';
 
@@ -24,6 +25,9 @@ function App() {
         <Route path="/">
           <Nav />
           <Switch>
+            <Route path="/blog/new">
+              <PostCreator />
+            </Route>
             <Route path="/blog/:id/edit">
               <PostEditor />
             </Route>
