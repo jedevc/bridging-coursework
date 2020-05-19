@@ -7,10 +7,10 @@ import ContentContainer from '../components/ContentContainer';
 
 export default function PostEditor() {
   const [post, setPost] = useState({
-    title: "sample",
+    title: "",
     published_date: new Date(),
-    summary: "summary",
-    content: "hello world",
+    summary: "",
+    content: "",
   });
   let history = useHistory();
 
@@ -31,9 +31,11 @@ export default function PostEditor() {
         body: JSON.stringify(post),
       });
       
+      const json = await resp.json();
       if (resp.ok) {
-        const json = await resp.json();
         history.push(`/blog/${json.id}`);
+      } else {
+        console.log(json);
       }
     }
     submit();

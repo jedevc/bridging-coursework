@@ -31,6 +31,7 @@ export default function PostEditor(props) {
             className="input"
             type="text"
             name="title"
+            required
             value={props.post.title}
             onChange={handleInputs}
           />
@@ -46,6 +47,7 @@ export default function PostEditor(props) {
             className="input"
             type="datetime-local"
             name="published_date"
+            required
             value={props.post.published_date}
             onChange={handleInputs}
           />
@@ -60,6 +62,7 @@ export default function PostEditor(props) {
           <textarea
             className="textarea"
             name="summary"
+            required
             value={props.post.summary}
             onChange={handleInputs}
           ></textarea>
@@ -74,6 +77,7 @@ export default function PostEditor(props) {
           <textarea
             className="textarea"
             name="content"
+            required
             value={props.post.content}
             onChange={handleInputs}
           ></textarea>
