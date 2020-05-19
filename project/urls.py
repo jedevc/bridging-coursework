@@ -24,6 +24,7 @@ def index(request):
 urlpatterns = [
     path('api-token/', obtain_auth_token),
     path('api/', include('blog.urls')),
+    path('api/cv/', include('cv.urls')),
     path('admin/', admin.site.urls),
     path('', include('frontend.urls')),
 ]
