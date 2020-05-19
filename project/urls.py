@@ -16,11 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import re_path, path, include
 from django.shortcuts import render
+from rest_framework.authtoken.views import obtain_auth_token
 
 def index(request):
     return render(request, 'blog/index.html', {})
 
 urlpatterns = [
+    path('api-token/', obtain_auth_token),
     path('api/', include('blog.urls')),
     path('admin/', admin.site.urls),
     path('', include('frontend.urls')),

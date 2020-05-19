@@ -10,6 +10,7 @@ import Nav from './components/Nav';
 import Home from './pages/Home';
 import Blog from './pages/Blog';
 import Post from './pages/Post';
+import PostEditor from './pages/PostEditor';
 import Portfolio from './pages/Portfolio';
 import NotFound from './pages/NotFound';
 
@@ -23,6 +24,9 @@ function App() {
         <Route path="/">
           <Nav />
           <Switch>
+            <Route path="/blog/:id/edit">
+              <PostEditor />
+            </Route>
             <Route path="/blog/:id">
               <Post />
             </Route>
