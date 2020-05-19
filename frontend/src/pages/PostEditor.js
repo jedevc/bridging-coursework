@@ -3,6 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 
 import Auth from "../components/Auth";
 import ContentContainer from '../components/ContentContainer';
+import PostEditorComponent from '../components/PostEditor';
 
 export default function PostEditor() {
   const [post, setPost] = useState({});
@@ -18,16 +19,13 @@ export default function PostEditor() {
       }
     }
     fetchData();
-  }, [])
+  }, []);
 
-  const handleInputs = (event) => {
-    event.persist();
-    setPost(post => ({...post, [event.target.name]: event.target.value}));
+  const handleChange = (newPost) => {
+    setPost(newPost);
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
+  const handleSubmit = () => {
     async function submit() {
       let token = localStorage.getItem('token');
       let resp = await fetch(`/api/posts/${id}/`, {
@@ -47,8 +45,7 @@ export default function PostEditor() {
     submit();
   }
 
-  const handleCancel = (event) => {
-    event.preventDefault();
+  const handleCancel = () => {
     history.push(`/blog/${id}`);
   }
 
@@ -59,83 +56,7 @@ export default function PostEditor() {
   return (
     <>
       <Auth />
-      <section className="section">
-        <ContentContainer>
-          <form onSubmit={handleSubmit}>
-            <div className="field">
-              <label htmlFor="title" className="label">
-                Title
-              </label>
-              <div className="control">
-                <input
-                  className="input"
-                  type="text"
-                  name="title"
-                  value={post.title}
-                  onChange={handleInputs}
-                />
-              </div>
-            </div>
-
-            <div className="field">
-              <label htmlFor="date" className="label">
-                Publish date
-              </label>
-              <div className="control">
-                <input
-                  className="input"
-                  type="datetime-local"
-                  name="published_date"
-                  value={post.published_date}
-                  onChange={handleInputs}
-                />
-              </div>
-            </div>
-
-            <div className="field">
-              <label htmlFor="summary" className="label">
-                Summary
-              </label>
-              <div className="control">
-                <textarea
-                  className="textarea"
-                  name="summary"
-                  value={post.summary}
-                  onChange={handleInputs}
-                ></textarea>
-              </div>
-            </div>
-
-            <div className="field">
-              <label htmlFor="content" className="label">
-                Content
-              </label>
-              <div className="control">
-                <textarea
-                  className="textarea"
-                  name="content"
-                  value={post.content}
-                  onChange={handleInputs}
-                ></textarea>
-              </div>
-            </div>
-
-            <div className="field is-grouped">
-              <div className="control">
-                <button className="button is-link">Submit</button>
-              </div>
-              <div className="control">
-                <button
-                  className="button is-link is-light"
-                  onClick={handleCancel}
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </form>
-        </ContentContainer>
-      </section>
+      <PostEditorComponent post={post} onChange={handleChange} onCancel={handleCancel} onSubmit={handleSubmit} />
     </>
   );
 }
