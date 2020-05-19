@@ -11,6 +11,7 @@ import Home from './pages/Home';
 import Blog from './pages/Blog';
 import Post from './pages/Post';
 import Portfolio from './pages/Portfolio';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -21,15 +22,20 @@ function App() {
         </Route>
         <Route path="/">
           <Nav />
-          <Route exact path="/blog/:id">
-            <Post />
-          </Route>
-          <Route exact path="/blog">
-            <Blog />
-          </Route>
-          <Route exact path="/cv">
-            <Portfolio />
-          </Route>
+          <Switch>
+            <Route path="/blog/:id">
+              <Post />
+            </Route>
+            <Route path="/blog">
+              <Blog />
+            </Route>
+            <Route path="/cv">
+              <Portfolio />
+            </Route>
+            <Route path="/">
+              <NotFound />
+            </Route>
+          </Switch>
         </Route>
       </Switch>
     </Router>
