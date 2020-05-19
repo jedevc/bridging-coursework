@@ -33,6 +33,7 @@ export default function Auth() {
         },
         body: JSON.stringify(inputs),
       });
+
       let json = await resp.json();
       if (json["token"]) {
         setToken(json["token"]);

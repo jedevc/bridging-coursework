@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,19 +7,25 @@ import {
 } from "react-router-dom";
 
 export default function Nav() {
+  const [active, setActive] = useState(false);
+
+  const toggle = () => {
+    setActive(!active);
+  }
+
   return (
     <nav className="navbar">
       <div className="container">
         <div className="navbar-brand">
           <span className="navbar-item">
           </span>
-          <span className="navbar-burger burger" data-target="navbarMenuHeroB">
+          <span className="navbar-burger" onClick={toggle}>
             <span></span>
             <span></span>
             <span></span>
           </span>
         </div>
-        <div className="navbar-menu">
+        <div className={`navbar-menu ${active ? "is-active" : ""}`}>
           <div className="navbar-end">
             <Link to="/" className="navbar-item">Home</Link>
             <Link to="/blog" className="navbar-item">Blog</Link>
