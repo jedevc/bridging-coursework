@@ -23,6 +23,12 @@ export default function Post() {
   return (
     <section className="section">
       <ContentContainer>
+        <Link to="edit" className="has-text-black">
+          <span className="icon is-medium is-pulled-right">
+            <i className="fa fa-lg fa-edit" aria-hidden="true"></i>
+          </span>
+        </Link>
+
         <PostHeader title={post.title} date={post.published_date} />
 
         <div className="content">
