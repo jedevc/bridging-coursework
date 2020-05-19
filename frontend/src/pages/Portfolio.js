@@ -1,97 +1,58 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import ContentContainer from '../components/ContentContainer';
 
-const education = [
-  {
-    qualification: "Computer Science BSc",
-    icon: "fa fa-university",
-    location: "University of Birmingham",
-    start: "2018",
-    end: "2021",
-    notes: [
-      "On track for 1st class degree",
-      "Awarded first year undergraduate prizes for highest combined weighted average",
-    ],
-  },
-  {
-    qualification: "A levels",
-    icon: "fa fa-school",
-    location: "KISC",
-    start: "2017",
-    end: "2018",
-    notes: [
-      "A*A*A in Computer Science, Maths and English Language",
-    ],
-  },
-  {
-    qualification: "IGCSEs",
-    icon: "fa fa-school",
-    location: "KISC",
-    start: "2016",
-    end: "2017",
-    notes: [
-      "10 GCSEs, 9 A*s",
-    ],
-  },
-];
-
-const projects = [
-  {
-    name: "AppArea",
-    icon: "fa fa-filter",
-    link: "https://apparea.dev",
-    notes: [
-      "Lightweight open-source port forwarding helper using SSH tunnels.",
-      "Written as a development utility, and used to share websites on localhost with the world.",
-    ],
-  },
-];
-
-const work = [
-  {
-    name: "Progressive Accessibility Solutions",
-    icon: "fa fa-universal-access",
-    role: "Front-end engineer",
-    start: "Nov 2019",
-    end: "Present",
-    notes: [
-      "Designed and created a new website from scratch to represent the face of the company.",
-      "Designed for adaptive screen sizes, including mobile, and ensured an accessibility friendly layout.",
-      "Setup Headless CMS and engineered CI/CD pipelines to facilitate automation.",
-    ],
-  },
-];
-
-const volunteering = [
-  {
-    name: "Hack the Midlands",
-    icon: "fa fa-network-wired",
-    role: "Organizer",
-    start: "Jun 2019",
-    end: "Present",
-    notes: [
-      "Helped plan and organize a hackathon of over 250 attendees.",
-      "Built and deployed a number of web services to enhance attendee experience.",
-      "Designed and ran a CTF, accessible to attendees of all ages and skill levels.",
-    ],
-  },
-];
-
-const awards = [
-  {
-    name: "Test prize",
-    icon: "fa fa-award",
-    giver: "University of Birmingham",
-    date: "Dec 2019",
-    notes: ["A single note"],
-  },
-];
-
 export default function Portfolio() {
+  const [education, setEducation] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [work, setWork] = useState([]);
+  const [volunteering, setVolunteering] = useState([]);
+  const [awards, setAwards] = useState([]);
+
   useEffect(() => {
-    document.title = "jedevc | Portfolio";
-  }, []);
+    document.title = "jedevc | CV";
+
+    async function fetchEducation() {
+      let resp = await fetch(`/api/cv/education`);
+      if (resp.ok) {
+        let json = await resp.json();
+        setEducation(json);
+      }
+    }
+    async function fetchProjects() {
+      let resp = await fetch(`/api/cv/projects`);
+      if (resp.ok) {
+        let json = await resp.json();
+        setProjects(json);
+      }
+    }
+    async function fetchWork() {
+      let resp = await fetch(`/api/cv/work`);
+      if (resp.ok) {
+        let json = await resp.json();
+        setWork(json);
+      }
+    }
+    async function fetchVolunteering() {
+      let resp = await fetch(`/api/cv/volunteer`);
+      if (resp.ok) {
+        let json = await resp.json();
+        setVolunteering(json);
+      }
+    }
+    async function fetchAwards() {
+      let resp = await fetch(`/api/cv/awards`);
+      if (resp.ok) {
+        let json = await resp.json();
+        setAwards(json);
+      }
+    }
+    fetchEducation();
+    fetchProjects();
+    fetchWork();
+    fetchVolunteering();
+    fetchAwards();
+  }, [])
 
   let educationView = education.map((item) => {
     return (
@@ -104,7 +65,7 @@ export default function Portfolio() {
             </strong>
           </li>
 
-          {item.notes.map(note => <li>{note}</li>)}
+          {item.notes.split(/[\r\n]+/).map(note => <li>{note}</li>)}
         </ul>
       </Item>
     );
@@ -118,7 +79,7 @@ export default function Portfolio() {
             <a href={item.link}>{item.link}</a>
           </li>
 
-          {item.notes.map(note => <li>{note}</li>)}
+          {item.notes.split(/[\r\n]+/).map(note => <li>{note}</li>)}
         </ul>
       </Item>
     );
@@ -132,7 +93,7 @@ export default function Portfolio() {
             {item.role} <strong>({item.start} - {item.end})</strong>
           </li>
 
-          {item.notes.map(note => <li>{note}</li>)}
+          {item.notes.split(/[\r\n]+/).map(note => <li>{note}</li>)}
         </ul>
       </Item>
     );
@@ -146,7 +107,7 @@ export default function Portfolio() {
             {item.role} <strong>({item.start} - {item.end})</strong>
           </li>
 
-          {item.notes.map(note => <li>{note}</li>)}
+          {item.notes.split(/[\r\n]+/).map(note => <li>{note}</li>)}
         </ul>
       </Item>
     );
@@ -160,7 +121,7 @@ export default function Portfolio() {
             {item.giver} <strong>({item.date})</strong>
           </li>
 
-          {item.notes.map(note => <li>{note}</li>)}
+          {item.notes.split(/[\r\n]+/).map(note => <li>{note}</li>)}
         </ul>
       </Item>
     );
@@ -215,7 +176,7 @@ function Item(props) {
         <span>{props.name}</span>
       </div>
 
-      <div class="content">
+      <div className="content">
         {props.children}
       </div>
     </div>
