@@ -12,19 +12,17 @@ export default function Home() {
       <section className="section">
         <div className="container">
           <div className="columns">
-            <div className="column">
+            <div className="column content">
               <h1 className="title is-family-monospace">whoami</h1>
               <p>
                 Hey there, I'm Justin! I also go as @jedevc in online places, a
                 random collection of letters which you can pronounce however you
                 like, I don't really mind.
               </p>
-              <br />
               <p>
                 I'm a university student, developer, occasional web designer,
                 and security enthusiast!
               </p>
-              <br />
               <p>
                 I'm a regular member of <a href="https://afnom.net">AFNOM</a>,
                 and I'm at most <a href="https://cssbham.com">CSS</a> events
