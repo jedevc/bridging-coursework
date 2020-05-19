@@ -27,6 +27,13 @@ export default function Blog() {
     <section className="section">
       <div className="container">
         {items}
+
+        <Link to="/blog/new" className="button is-primary is-pulled-right">
+          <span className="icon">
+            <i className="fa fa-plus-circle"></i>
+          </span>
+          <span>New</span>
+        </Link>
       </div>
     </section>
   )
