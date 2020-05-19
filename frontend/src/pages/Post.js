@@ -20,10 +20,14 @@ export default function Post() {
     fetchData();
   }, [])
 
+  if (Object.keys(post).length == 0) {
+    return <></>;
+  }
+
   return (
     <section className="section">
       <ContentContainer>
-        <Link to="edit" className="has-text-black">
+        <Link to={`/blog/${id}/edit`} className="has-text-black">
           <span className="icon is-medium is-pulled-right">
             <i className="fa fa-lg fa-edit" aria-hidden="true"></i>
           </span>
