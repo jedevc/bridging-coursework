@@ -44,7 +44,7 @@ function Socials(props) {
   let socials = [];
   if (props.twitter) {
     socials.push(
-      <a className="panel-block" href={`https://twitter.com/${props.twitter}`}>
+      <a key="twitter" className="panel-block" href={`https://twitter.com/${props.twitter}`}>
         <span className="panel-icon">
           <i className="fab fa-twitter" aria-hidden="true"></i>
         </span>
@@ -54,7 +54,7 @@ function Socials(props) {
   }
   if (props.github) {
     socials.push(
-      <a className="panel-block" href={`https://github.com/${props.github}`}>
+      <a key="github" className="panel-block" href={`https://github.com/${props.github}`}>
         <span className="panel-icon">
           <i className="fab fa-github" aria-hidden="true"></i>
         </span>
@@ -64,7 +64,7 @@ function Socials(props) {
   }
   if (props.linkedin) {
     socials.push(
-      <a className="panel-block" href={`https://linkedin.com/in/${props.linkedin}`}>
+      <a key="linkedin" className="panel-block" href={`https://linkedin.com/in/${props.linkedin}`}>
         <span className="panel-icon">
           <i className="fab fa-linkedin" aria-hidden="true"></i>
         </span>
@@ -74,7 +74,7 @@ function Socials(props) {
   }
   if (props.email) {
     socials.push(
-      <a className="panel-block" href={`mailto:${props.email}`}>
+      <a key="email" className="panel-block" href={`mailto:${props.email}`}>
         <span className="panel-icon">
           <i className="fa fa-envelope" aria-hidden="true"></i>
         </span>
