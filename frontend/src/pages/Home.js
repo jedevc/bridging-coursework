@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Nav from "../components/Nav";
 
 export default function Home() {
+  useEffect(() => {
+    document.title = "jedevc";
+  }, []);
+
   return (
     <>
       <Hero title="Justin Chadwell" subtitle="Bridging Coursework" />

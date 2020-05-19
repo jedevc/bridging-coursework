@@ -7,6 +7,10 @@ export default function Blog() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
+    document.title = "jedevc | Blog";
+  }, []);
+
+  useEffect(() => {
     async function fetchData() {
       let resp = await fetch("/api/posts");
       if (resp.ok) {

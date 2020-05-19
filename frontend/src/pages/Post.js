@@ -10,11 +10,14 @@ export default function Post() {
   let { id } = useParams();
 
   useEffect(() => {
+    document.title = "jedevc";
+
     async function fetchData() {
       let resp = await fetch(`/api/posts/${id}`);
       if (resp.ok) {
         let json = await resp.json();
         setPost(json);
+        document.title = "jedevc | " + json["title"];
       }
     }
     fetchData();
