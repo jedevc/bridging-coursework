@@ -16,4 +16,4 @@ class PostViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         posts = Post.objects.filter(published_date__lte=timezone.now())
-        return posts.order_by('published_date')
+        return posts.order_by('-published_date')
