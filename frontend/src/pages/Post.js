@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
 import { PostHeader } from "../components/Post";
+import ContentContainer from '../components/ContentContainer';
 
 export default function Post() {
   const [post, setPost] = useState({});
@@ -21,17 +22,13 @@ export default function Post() {
 
   return (
     <section className="section">
-      <div className="container">
-        <div className="columns">
-          <div className="column is-three-quarters-desktop is-three-quarters-tablet is-full-mobile">
-            <PostHeader title={post.title} date={post.published_date} />
+      <ContentContainer>
+        <PostHeader title={post.title} date={post.published_date} />
 
-            <div className="content">
-              <ReactMarkdown source={post.content} />
-            </div>
-          </div>
+        <div className="content">
+          <ReactMarkdown source={post.content} />
         </div>
-      </div>
+      </ContentContainer>
     </section>
   );
 }
