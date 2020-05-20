@@ -4,6 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import Auth from "../components/Auth";
 import PostEditorComponent from '../components/PostEditor';
 import ContentContainer from '../components/ContentContainer';
+import { updater, deleter } from '../utils/api';
 
 export default function PostEditor() {
   const [post, setPost] = useState({});
@@ -26,23 +27,11 @@ export default function PostEditor() {
   }
 
   const handleSubmit = () => {
-    async function submit() {
-      let token = localStorage.getItem('token');
-      let resp = await fetch(`/api/posts/${id}/`, {
-        method: "PUT",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Authorization": `Token ${token}`
-        },
-        body: JSON.stringify(post),
-      });
-      
-      if (resp.ok) {
-        history.push(`/blog/${id}`);
-      }
+    async function doSubmit() {
+      let result = await updater("posts", id, post);
+      history.push(`/blog/${id}`);
     }
-    submit();
+    doSubmit();
   }
 
   const handleCancel = () => {
@@ -50,22 +39,11 @@ export default function PostEditor() {
   }
 
   const handleDelete = () => {
-    async function del() {
-      let token = localStorage.getItem('token');
-      let resp = await fetch(`/api/posts/${id}/`, {
-        method: "DELETE",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Authorization": `Token ${token}`
-        },
-      });
-      
-      if (resp.ok) {
-        history.push(`/blog/`);
-      }
+    async function doDelete() {
+      await deleter("posts", id);
+      history.push(`/blog/`);
     }
-    del();
+    doDelete();
   }
 
   if (Object.keys(post).length == 0) {

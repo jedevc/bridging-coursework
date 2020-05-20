@@ -4,6 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import Auth from "../components/Auth";
 import PostEditorComponent from '../components/PostEditor';
 import ContentContainer from '../components/ContentContainer';
+import { creator } from '../utils/api';
 
 export default function PostEditor() {
   const [post, setPost] = useState({
@@ -19,26 +20,11 @@ export default function PostEditor() {
   }
 
   const handleSubmit = () => {
-    async function submit() {
-      let token = localStorage.getItem('token');
-      let resp = await fetch(`/api/posts/`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Authorization": `Token ${token}`
-        },
-        body: JSON.stringify(post),
-      });
-      
-      const json = await resp.json();
-      if (resp.ok) {
-        history.push(`/blog/${json.id}`);
-      } else {
-        console.log(json);
-      }
+    async function doSubmit() {
+      let json = await creator("posts", post);
+      history.push(`/blog/${json.id}`);
     }
-    submit();
+    doSubmit();
   }
 
   const handleCancel = () => {
