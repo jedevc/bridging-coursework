@@ -6,7 +6,7 @@ import Auth from '../components/Auth';
 import { lister, creator, updater, deleter } from '../utils/api';
 
 export default function Portfolio() {
-  const spec = [
+  const educationSpec = [
     { name: "Qualification", key: "qualification" },
     { name: "Location", key: "location" },
     { name: "Icon", key: "icon", special: "icon" },
@@ -14,12 +14,37 @@ export default function Portfolio() {
     { name: "End", key: "end" },
     { name: "Notes", key: "notes", special: "textarea" },
   ]
+  const workSpec = [
+    { name: "Name", key: "name" },
+    { name: "Role", key: "role" },
+    { name: "Icon", key: "icon", special: "icon" },
+    { name: "Start", key: "start" },
+    { name: "End", key: "end" },
+    { name: "Notes", key: "notes", special: "textarea" },
+  ]
+  const projectSpec = [
+    { name: "Name", key: "name" },
+    { name: "Link", key: "link" },
+    { name: "Icon", key: "icon", special: "icon" },
+    { name: "Notes", key: "notes", special: "textarea" },
+  ]
+  const awardsSpec = [
+    { name: "Name", key: "name" },
+    { name: "Giver", key: "giver" },
+    { name: "Icon", key: "icon", special: "icon" },
+    { name: "Date", key: "date" },
+    { name: "Notes", key: "notes", special: "textarea" },
+  ]
 
   return (
     <section className="section">
       <ContentContainer>
         <Auth />
-        <GodEditor type="cv/education" name="Education" spec={spec} />
+        <GodEditor type="cv/education" name="Education" spec={educationSpec} />
+        <GodEditor type="cv/work" name="Work" spec={workSpec} />
+        <GodEditor type="cv/volunteer" name="Volunteering" spec={workSpec} />
+        <GodEditor type="cv/projects" name="Projects" spec={projectSpec} />
+        <GodEditor type="cv/awards" name="Awards" spec={awardsSpec} />
       </ContentContainer>
     </section>
   );
@@ -90,6 +115,8 @@ function GodEditor(props) {
 
   return (
     <div className="box">
+      <h1 className="title">{props.name}</h1>
+
       {contentView}
 
       <button className="button is-primary" onClick={handleCreate}>
