@@ -99,8 +99,10 @@ function SectionEditor(props) {
       doDelete();
     }
     
+    // NOTE: we don't use the item.id as a key here, as there may be uncompleted
+    // items at the end without an id
     return (
-      <div className="box">
+      <div key={index} className="box">
         <GenericEditor spec={props.spec} content={item} onChange={handleChange} onSubmit={handleUpdate} onDelete={handleDelete} />
       </div>
     );

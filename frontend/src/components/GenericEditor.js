@@ -45,7 +45,7 @@ export default function GenericEditor(props) {
       );
     }
     return (
-      <div className="field">
+      <div key={item.key} className="field">
         <label htmlFor="title" className="label">
           {item.name}
         </label>

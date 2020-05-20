@@ -27,7 +27,7 @@ export default function Portfolio() {
 
   let educationView = education.map((item) => {
     return (
-      <Item name={item.qualification} icon={item.icon}>
+      <Item key={item.id} name={item.qualification} icon={item.icon}>
         <ul>
           <li>
             {item.location}{" "}
@@ -36,7 +36,7 @@ export default function Portfolio() {
             </strong>
           </li>
 
-          {item.notes.split(/[\r\n]+/).map(note => <li>{note}</li>)}
+          <Notes content={item.notes} />
         </ul>
       </Item>
     );
@@ -44,13 +44,13 @@ export default function Portfolio() {
 
   let projectsView = projects.map((item) => {
     return (
-      <Item name={item.name} icon={item.icon}>
+      <Item key={item.id} name={item.name} icon={item.icon}>
         <ul>
           <li>
             <a href={item.link}>{item.link}</a>
           </li>
 
-          {item.notes.split(/[\r\n]+/).map(note => <li>{note}</li>)}
+          <Notes content={item.notes} />
         </ul>
       </Item>
     );
@@ -58,13 +58,13 @@ export default function Portfolio() {
 
   let workView = work.map((item) => {
     return (
-      <Item name={item.name} icon={item.icon}>
+      <Item key={item.id} name={item.name} icon={item.icon}>
         <ul>
           <li>
             {item.role} <strong>({item.start} - {item.end})</strong>
           </li>
 
-          {item.notes.split(/[\r\n]+/).map(note => <li>{note}</li>)}
+          <Notes content={item.notes} />
         </ul>
       </Item>
     );
@@ -72,13 +72,13 @@ export default function Portfolio() {
 
   let volunteeringView = volunteering.map((item) => {
     return (
-      <Item name={item.name} icon={item.icon}>
+      <Item key={item.id} name={item.name} icon={item.icon}>
         <ul>
           <li>
             {item.role} <strong>({item.start} - {item.end})</strong>
           </li>
 
-          {item.notes.split(/[\r\n]+/).map(note => <li>{note}</li>)}
+          <Notes content={item.notes} />
         </ul>
       </Item>
     );
@@ -86,13 +86,13 @@ export default function Portfolio() {
   
   let awardsView = awards.map((item) => {
     return (
-      <Item name={item.name} icon={item.icon}>
+      <Item key={item.id} name={item.name} icon={item.icon}>
         <ul>
           <li>
             {item.giver} <strong>({item.date})</strong>
           </li>
 
-          {item.notes.split(/[\r\n]+/).map(note => <li>{note}</li>)}
+          <Notes content={item.notes} />
         </ul>
       </Item>
     );
@@ -158,4 +158,14 @@ function Item(props) {
       </div>
     </div>
   );
+}
+
+function Notes(props) {
+  let items = props.content.split(/[\r\n]+/);
+  let notes = items.map((item, index) => (
+    <li key={index}>
+      {item}
+    </li>
+  ));
+  return notes;
 }
