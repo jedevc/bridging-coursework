@@ -3,12 +3,7 @@ from django.utils import timezone
 
 from django.contrib.auth.models import User
 from .models import Post
-from .serializers import UserSerializer, PostSerializer
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
+from .serializers import PostSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
