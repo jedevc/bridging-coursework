@@ -13,6 +13,7 @@ import Post from './pages/Post';
 import PostEditor from './pages/PostEditor';
 import PostCreator from './pages/PostCreator';
 import Portfolio from './pages/Portfolio';
+import PortfolioEditor from './pages/PortfolioEditor';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -36,6 +37,9 @@ function App() {
             </Route>
             <Route path="/blog">
               <Blog />
+            </Route>
+            <Route path="/cv/edit">
+              <PortfolioEditor />
             </Route>
             <Route path="/cv">
               <Portfolio />

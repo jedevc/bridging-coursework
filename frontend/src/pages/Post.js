@@ -30,8 +30,8 @@ export default function Post() {
   return (
     <section className="section">
       <ContentContainer>
-        <Link to={`/blog/${id}/edit`} className="has-text-black">
-          <span className="icon is-medium is-pulled-right">
+        <Link to={`/blog/${id}/edit`} className="has-text-black is-pulled-right">
+          <span className="icon is-medium">
             <i className="fa fa-lg fa-edit" aria-hidden="true"></i>
           </span>
         </Link>

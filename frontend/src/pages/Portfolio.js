@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 
 import ContentContainer from '../components/ContentContainer';
 
@@ -12,46 +13,18 @@ export default function Portfolio() {
   useEffect(() => {
     document.title = "jedevc | CV";
 
-    async function fetchEducation() {
-      let resp = await fetch(`/api/cv/education`);
+    async function fetcher(part, hook) {
+      let resp = await fetch(`/api/cv/${part}`);
       if (resp.ok) {
         let json = await resp.json();
-        setEducation(json);
+        hook(json);
       }
     }
-    async function fetchProjects() {
-      let resp = await fetch(`/api/cv/projects`);
-      if (resp.ok) {
-        let json = await resp.json();
-        setProjects(json);
-      }
-    }
-    async function fetchWork() {
-      let resp = await fetch(`/api/cv/work`);
-      if (resp.ok) {
-        let json = await resp.json();
-        setWork(json);
-      }
-    }
-    async function fetchVolunteering() {
-      let resp = await fetch(`/api/cv/volunteer`);
-      if (resp.ok) {
-        let json = await resp.json();
-        setVolunteering(json);
-      }
-    }
-    async function fetchAwards() {
-      let resp = await fetch(`/api/cv/awards`);
-      if (resp.ok) {
-        let json = await resp.json();
-        setAwards(json);
-      }
-    }
-    fetchEducation();
-    fetchProjects();
-    fetchWork();
-    fetchVolunteering();
-    fetchAwards();
+    fetcher("education", setEducation);
+    fetcher("projects", setProjects);
+    fetcher("work", setWork);
+    fetcher("volunteer", setVolunteering);
+    fetcher("awards", setAwards);
   }, [])
 
   let educationView = education.map((item) => {
@@ -131,6 +104,12 @@ export default function Portfolio() {
     <section className="section">
       <ContentContainer>
         <div className="box">
+          <Link to="/cv/edit" className="has-text-black is-pulled-right">
+            <span className="icon is-medium">
+              <i className="fa fa-lg fa-edit" aria-hidden="true"></i>
+            </span>
+          </Link>
+
           <h1 className="title">Justin Chadwell</h1>
           <h2 className="subtitle">Smethwick, West Midlands UK</h2>
 
