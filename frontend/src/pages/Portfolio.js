@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 
+import { lister } from "../utils/api";
+
 import ContentContainer from '../components/ContentContainer';
 
 export default function Portfolio() {
@@ -13,18 +15,14 @@ export default function Portfolio() {
   useEffect(() => {
     document.title = "jedevc | CV";
 
-    async function fetcher(part, hook) {
-      let resp = await fetch(`/api/cv/${part}`);
-      if (resp.ok) {
-        let json = await resp.json();
-        hook(json);
-      }
+    const doFetch = async () => {
+      setEducation(await lister("cv/education"));
+      setProjects(await lister("cv/projects"));
+      setWork(await lister("cv/work"));
+      setVolunteering(await lister("cv/volunteer"));
+      setAwards(await lister("cv/awards"));
     }
-    fetcher("education", setEducation);
-    fetcher("projects", setProjects);
-    fetcher("work", setWork);
-    fetcher("volunteer", setVolunteering);
-    fetcher("awards", setAwards);
+    doFetch();
   }, [])
 
   let educationView = education.map((item) => {
