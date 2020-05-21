@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Error from "./Error";
 
 export default function Auth() {
   const [inputs, setInputs] = useState({username: "", password: ""});
@@ -46,14 +47,6 @@ export default function Auth() {
     submit();
   }
 
-  const errorView = errors.map((error, index) => (
-    <div className="message is-danger" key={index}>
-      <div className="message-body">
-        {error}
-      </div>
-    </div>
-  ));
-
   return (
     <div className="modal is-active">
       <div className="modal-background"></div>
@@ -91,7 +84,7 @@ export default function Auth() {
             </div>
           </div>
 
-          {errorView}
+          <Error errors={errors} />
         </form>
       </div>
     </div>

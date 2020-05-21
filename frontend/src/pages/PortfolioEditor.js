@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ContentContainer from '../components/ContentContainer';
 import Auth from '../components/Auth';
 import GenericEditor from '../components/GenericEditor';
+import Error from '../components/Error';
 
 import { lister, creator, updater, deleter } from '../utils/api';
 
@@ -53,9 +54,16 @@ export default function Portfolio() {
 
 function SectionEditor(props) {
   const [contents, setContents] = useState([]);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     let doRead = async () => {
-      setContents(await lister(props.type));
+      try {
+        setContents(await lister(props.type));
+      } catch (e) {
+        let bodyMessage = await e.response.json();
+        setError(`${e.response.status} ${e.response.statusText} ${JSON.stringify(bodyMessage)}`);
+      }
     }
     doRead();
   }, [props.type]);
@@ -73,21 +81,34 @@ function SectionEditor(props) {
 
     const handleUpdate = () => {
       let doUpdate = async () => {
-        let result;
-        if (item.id) {
-          result = updater(props.type, item.id, item);
-        } else {
-          result = creator(props.type, item);
+        try {
+          if (item.id) {
+            let result = updater(props.type, item.id, item);
+            handleChange(await result);
+          } else {
+            let result = creator(props.type, item);
+            handleChange(await result);
+          }
+          setError(null);
+        } catch (e) {
+          let bodyMessage = await e.response.json();
+          setError(`${e.response.status} ${e.response.statusText} ${JSON.stringify(bodyMessage)}`);
         }
-        
-        handleChange(await result);
       }
       doUpdate();
     }
 
     const handleDelete = () => {
       let doDelete = async () => {
-        await deleter(props.type, item.id);
+        try {
+          await deleter(props.type, item.id);
+          setError(null);
+        } catch (e) {
+          let bodyMessage = await e.response.json();
+          setError(`${e.response.status} ${e.response.statusText} ${JSON.stringify(bodyMessage)}`);
+          return;
+        }
+
         setContents(contents.filter((otherItem, otherIndex) => {
           if (index == otherIndex) {
             return false;
@@ -104,6 +125,8 @@ function SectionEditor(props) {
     return (
       <div key={index} className="box">
         <GenericEditor spec={props.spec} content={item} onChange={handleChange} onSubmit={handleUpdate} onDelete={handleDelete} />
+        <br />
+        <Error error={error} />
       </div>
     );
   });
