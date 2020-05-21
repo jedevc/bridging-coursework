@@ -81,6 +81,20 @@ class PostTestCase(TestCase):
         post = json.loads(resp.content)
         self.assertIn("id", post)
 
+    def test_create_post_noauth(self):
+        client = APIClient()
+
+        resp = client.post("/api/posts/", {
+            "title": "Sample post",
+            "summary": "Sample summary",
+            "content": "Sample content",
+            "published_date": timezone.now(),
+        }, format="json")
+
+        post = json.loads(resp.content)
+        self.assertNotIn("id", post)
+        self.assertEqual(resp.status_code, 401)
+
     def test_publish_post(self):
         admin_client = APIClient()
         basic_client = APIClient()
@@ -127,6 +141,3 @@ class PostTestCase(TestCase):
         post = json.loads(resp.content)
         self.assertEqual(resp.status_code, 404)
         self.assertNotIn("id", post)
-
-    def test_check_requires_authentication(self):
-        pass
