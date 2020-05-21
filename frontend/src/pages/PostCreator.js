@@ -9,7 +9,7 @@ import { creator } from '../utils/api';
 export default function PostEditor() {
   const [post, setPost] = useState({
     title: "",
-    published_date: new Date(),
+    published_date: new Date().toISOString(),
     summary: "",
     content: "",
   });

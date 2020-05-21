@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 
 import { PostHeader } from "../components/Post";
 import ContentContainer from '../components/ContentContainer';
+import { reader } from "../utils/api";
 
 export default function Post() {
   const [post, setPost] = useState({});
@@ -13,12 +14,9 @@ export default function Post() {
     document.title = "jedevc";
 
     async function fetchData() {
-      let resp = await fetch(`/api/posts/${id}`);
-      if (resp.ok) {
-        let json = await resp.json();
-        setPost(json);
-        document.title = "jedevc | " + json["title"];
-      }
+      let json = await reader("posts", id);
+      setPost(json);
+      document.title = "jedevc | " + json["title"];
     }
     fetchData();
   }, [])

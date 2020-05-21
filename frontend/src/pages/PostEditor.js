@@ -4,7 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import Auth from "../components/Auth";
 import PostEditorComponent from '../components/PostEditor';
 import ContentContainer from '../components/ContentContainer';
-import { updater, deleter } from '../utils/api';
+import { updater, deleter, reader } from '../utils/api';
 
 export default function PostEditor() {
   const [post, setPost] = useState({});
@@ -13,11 +13,8 @@ export default function PostEditor() {
 
   useEffect(() => {
     async function fetchData() {
-      let resp = await fetch(`/api/posts/${id}`);
-      if (resp.ok) {
-        let json = await resp.json();
-        setPost(json);
-      }
+      let json = await reader("posts", id);
+      setPost(json);
     }
     fetchData();
   }, []);

@@ -1,16 +1,36 @@
 export async function lister(part) {
-  let resp = await fetch(`/api/${part}/`);
+  let token = localStorage.getItem('token');
+  let resp = await fetch(`/api/${part}/`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: token ? `Token ${token}` : null,
+    },
+  });
   if (resp.ok) {
     let json = await resp.json();
     return json;
+  } else {
+    throw {
+      response: resp,
+    };
   }
 }
 
 export async function reader(part, id) {
-  let resp = await fetch(`/api/${part}/${id}/`);
+  let token = localStorage.getItem('token');
+  let resp = await fetch(`/api/${part}/${id}/`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: token ? `Token ${token}` : null,
+    },
+  });
   if (resp.ok) {
     let json = await resp.json();
     return json;
+  } else {
+    throw {
+      response: resp,
+    };
   }
 }
 
@@ -29,6 +49,10 @@ export async function creator(part, content) {
   if (resp.ok) {
     let json = await resp.json();
     return json;
+  } else {
+    throw {
+      response: resp,
+    };
   }
 }
 
@@ -47,6 +71,10 @@ export async function updater(part, id, content) {
   if (resp.ok) {
     let json = await resp.json();
     return json;
+  } else {
+    throw {
+      response: resp,
+    };
   }
 }
 
@@ -60,5 +88,11 @@ export async function deleter(part, id) {
       "Authorization": `Token ${token}`
     },
   });
+
+  if (!resp.ok) {
+    throw {
+      response: resp,
+    };
+  }
 }
     

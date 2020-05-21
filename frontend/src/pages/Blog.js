@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 import { PostHeader } from "../components/Post";
+import { lister } from "../utils/api";
 
 export default function Blog() {
   const [posts, setPosts] = useState([]);
@@ -12,11 +13,8 @@ export default function Blog() {
 
   useEffect(() => {
     async function fetchData() {
-      let resp = await fetch("/api/posts");
-      if (resp.ok) {
-        let json = await resp.json();
-        setPosts(json);
-      }
+      let json = await lister("posts");
+      setPosts(json);
     }
     fetchData();
   }, [])
