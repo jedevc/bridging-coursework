@@ -10,5 +10,10 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
 
     def get_queryset(self):
-        posts = Post.objects.filter(published_date__lte=timezone.now())
+        # auth-ed users can view everything, but anon can only view published posts
+        if self.request.user and self.request.user.has_perm('blog.change_post'):
+            posts = Post.objects.all()
+        else:
+            posts = Post.objects.filter(published_date__lte=timezone.now())
+
         return posts.order_by('-published_date')
