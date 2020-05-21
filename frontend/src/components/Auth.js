@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Error from "./Error";
+import useLocalStorage from '../hooks/useLocalStorage';
 
 export default function Auth() {
   const [inputs, setInputs] = useState({username: "", password: ""});
-  const [token, setToken] = useState(
-    localStorage.getItem('token') || ''
-  );
+  const [token, setToken] = useLocalStorage('token', '');
   const [errors, setErrors] = useState([]);
  
-  useEffect(() => {
-    if (token.length > 0) {
-      localStorage.setItem('token', token);
-    }
-  }, [token]);
-
   if (token) {
     // already authenticated
     return <></>

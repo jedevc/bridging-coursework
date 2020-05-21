@@ -1,5 +1,12 @@
-export async function lister(part) {
+function loadToken() {
   let token = localStorage.getItem('token');
+  if (token) {
+    return JSON.parse(token);
+  }
+}
+
+export async function lister(part) {
+  let token = loadToken();
   let resp = await fetch(`/api/${part}/`, {
     headers: {
       Accept: "application/json",
@@ -17,7 +24,7 @@ export async function lister(part) {
 }
 
 export async function reader(part, id) {
-  let token = localStorage.getItem('token');
+  let token = loadToken();
   let resp = await fetch(`/api/${part}/${id}/`, {
     headers: {
       Accept: "application/json",
@@ -35,7 +42,7 @@ export async function reader(part, id) {
 }
 
 export async function creator(part, content) {
-  let token = localStorage.getItem('token');
+  let token = loadToken();
   let resp = await fetch(`/api/${part}/`, {
     method: "POST",
     headers: {
@@ -57,7 +64,7 @@ export async function creator(part, content) {
 }
 
 export async function updater(part, id, content) {
-  let token = localStorage.getItem('token');
+  let token = loadToken();
   let resp = await fetch(`/api/${part}/${id}/`, {
     method: "PUT",
     headers: {
@@ -79,7 +86,7 @@ export async function updater(part, id, content) {
 }
 
 export async function deleter(part, id) {
-  let token = localStorage.getItem('token');
+  let token = loadToken();
   let resp = await fetch(`/api/${part}/${id}/`, {
     method: "DELETE",
     headers: {
@@ -95,4 +102,3 @@ export async function deleter(part, id) {
     };
   }
 }
-    
