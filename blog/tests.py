@@ -39,6 +39,17 @@ class PostTestCase(TestCase):
 
         resp = client.get("/api/posts/")
         posts = json.loads(resp.content)
+        self.assertEqual(len(posts), 1)
+
+        resp = client.get(f"/api/posts/{post['id']}/")
+        post = json.loads(resp.content)
+        self.assertIn("id", post)
+
+        # deauthenticate
+        client.credentials()
+
+        resp = client.get("/api/posts/")
+        posts = json.loads(resp.content)
         self.assertEqual(len(posts), 0)
 
         resp = client.get(f"/api/posts/{post['id']}/")
@@ -59,6 +70,9 @@ class PostTestCase(TestCase):
         post = json.loads(resp.content)
         self.assertIn("id", post)
 
+        # deauthenticate
+        client.credentials()
+
         resp = client.get("/api/posts/")
         posts = json.loads(resp.content)
         self.assertEqual(len(posts), 1)
@@ -68,13 +82,51 @@ class PostTestCase(TestCase):
         self.assertIn("id", post)
 
     def test_publish_post(self):
-        pass
+        admin_client = APIClient()
+        basic_client = APIClient()
+        admin_client.credentials(HTTP_AUTHORIZATION="Token " + self.token.key)
 
-    def test_edit_post(self):
-        pass
+        resp = admin_client.post("/api/posts/", {
+            "title": "Sample post",
+            "summary": "Sample summary",
+            "content": "Sample content",
+        }, format="json")
+        post = json.loads(resp.content)
+
+        resp = basic_client.get("/api/posts/")
+        posts = json.loads(resp.content)
+        self.assertEqual(len(posts), 0)
+
+        resp = admin_client.put(f"/api/posts/{post['id']}/", {
+            "title": "Sample post",
+            "summary": "Sample summary",
+            "content": "Sample content",
+            "published_date": timezone.now(),
+        }, format="json")
+
+        resp = basic_client.get("/api/posts/")
+        posts = json.loads(resp.content)
+        self.assertEqual(len(posts), 1)
 
     def test_delete_post(self):
-        pass
+        client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION="Token " + self.token.key)
+
+        resp = client.post("/api/posts/", {
+            "title": "Sample post",
+            "summary": "Sample summary",
+            "content": "Sample content",
+            "published_date": timezone.now(),
+        }, format="json")
+        post = json.loads(resp.content)
+        self.assertIn("id", post)
+
+        resp = client.delete(f"/api/posts/{post['id']}/")
+
+        resp = client.get(f"/api/posts/{post['id']}/")
+        post = json.loads(resp.content)
+        self.assertEqual(resp.status_code, 404)
+        self.assertNotIn("id", post)
 
     def test_check_requires_authentication(self):
         pass
