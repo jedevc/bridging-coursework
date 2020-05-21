@@ -8,7 +8,9 @@ export default function Auth() {
   const [errors, setErrors] = useState([]);
  
   useEffect(() => {
-    localStorage.setItem('token', token);
+    if (token.length > 0) {
+      localStorage.setItem('token', token);
+    }
   }, [token]);
 
   if (token) {

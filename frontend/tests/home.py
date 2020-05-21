@@ -1,13 +1,10 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import NoSuchElementException
 
 from django.utils import timezone
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
-from blog.models import Post
 
 import time
 
@@ -16,7 +13,7 @@ class HomeTest(StaticLiveServerTestCase):
         super().setUpClass()
 
         self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(5)
+        self.browser.implicitly_wait(1)
 
         self.user = User.objects.create_superuser(
             username="admin",
