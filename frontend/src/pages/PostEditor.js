@@ -79,7 +79,12 @@ export default function PostEditor() {
               <p className="subtitle">Danger zone</p>
               <p>Warning, these actions cannot be reversed.</p>
               <br />
-              <button className="button is-warning" onClick={handleDelete}>Delete</button>
+              <button className="button is-warning" onClick={handleDelete}>
+                <span className="icon">
+                  <i className="fa fa-trash"></i>
+                </span>
+                <span>Delete</span>
+              </button>
             </div>
           </div>
           <Error error={error} />

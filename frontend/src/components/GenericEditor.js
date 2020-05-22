@@ -59,7 +59,7 @@ export default function GenericEditor(props) {
     deleteButton = (
       <div className="field">
         <div className="control">
-          <button className="button is-danger" onClick={handleDelete}>
+          <button className="button is-warning" onClick={handleDelete}>
             <span className="icon">
               <i className="fa fa-trash"></i>
             </span>

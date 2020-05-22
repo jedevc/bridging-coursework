@@ -112,3 +112,63 @@ class PostTest(StaticLiveServerTestCase):
         title = self.browser.find_element_by_xpath('//*[contains(text(), "A new post title")]')
         content = self.browser.find_element_by_xpath('//div[@class="content"]/p')
         self.assertEquals(content.text, "Some quick content")
+
+    def test_post_edit(self):
+        # There is already a single post
+        post = Post.objects.create(
+            title="A new post title",
+            summary="A quick summary",
+            content="Some quick content",
+            published_date=timezone.now())
+
+        # The site creator is already logged in
+        self.browser.get(self.live_server_url + '/cv')
+        self.browser.execute_script(f"window.localStorage.setItem('token', '\"{self.token}\"');");
+
+        # The creator nagivates to the post edit page
+        self.browser.get(self.live_server_url + f'/blog/{post.id}/edit')
+
+        # The creator modifies the page title
+        title = self.browser.find_element_by_name("title")
+        title.clear()
+        title.send_keys("A very different title")
+
+        # The creator clicks the submit button
+        submit = self.browser.find_element_by_xpath('//*[contains(text(), "Submit")]')
+        submit.click()
+
+        # The creator goes back to the post
+        self.browser.get(self.live_server_url + f'/blog/{post.id}')
+
+        # The original qualification item is now gone
+        with self.assertRaises(NoSuchElementException):
+            self.browser.find_element_by_xpath('//*[contains(text(), "A new post title")]')
+
+        # But, it's been replaced by the new one
+        self.browser.find_element_by_xpath('//*[contains(text(), "A very different title")]')
+
+    def test_post_delete(self):
+        # There is already a single post
+        post = Post.objects.create(
+            title="A new post title",
+            summary="A quick summary",
+            content="Some quick content",
+            published_date=timezone.now())
+
+        # The site creator is already logged in
+        self.browser.get(self.live_server_url + '/cv')
+        self.browser.execute_script(f"window.localStorage.setItem('token', '\"{self.token}\"');");
+
+        # The creator nagivates to the post edit page
+        self.browser.get(self.live_server_url + f'/blog/{post.id}/edit')
+
+        # The creator clicks the delete button
+        delete = self.browser.find_element_by_xpath('//*[contains(text(), "Delete")]')
+        delete.click()
+
+        # The creator nagivates to the post index
+        self.browser.get(self.live_server_url + f'/blog/')
+
+        # The post is now gone
+        with self.assertRaises(NoSuchElementException):
+            self.browser.find_element_by_xpath('//*[contains(text(), "A new post title")]')
