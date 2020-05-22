@@ -28,3 +28,17 @@ In one shell:
 In another:
 
     $ python manage.py runserver
+
+### Testing
+
+There are three sets of tests:
+
+- Blog API tests
+- CV API tests
+- Frontend tests (using selenium)
+
+To run each set of tests, respectively:
+
+    $ python manage.py test blog
+    $ python manage.py test cv
+    $ python manage.py test frontend
