@@ -9,7 +9,7 @@ class Education(models.Model):
     start = models.CharField(max_length=100)
     end = models.CharField(max_length=100)
 
-    notes = models.TextField()
+    notes = models.TextField(blank=True)
 
     def __str__(self):
         return self.qualification
@@ -23,7 +23,7 @@ class Work(models.Model):
     start = models.CharField(max_length=100)
     end = models.CharField(max_length=100)
 
-    notes = models.TextField()
+    notes = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
@@ -37,7 +37,7 @@ class Volunteering(models.Model):
     start = models.CharField(max_length=100)
     end = models.CharField(max_length=100)
 
-    notes = models.TextField()
+    notes = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
@@ -48,7 +48,7 @@ class Project(models.Model):
     link = models.URLField(max_length=100)
     icon = models.CharField(max_length=32)
 
-    notes = models.TextField()
+    notes = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
@@ -61,7 +61,7 @@ class Award(models.Model):
 
     date = models.CharField(max_length=100)
 
-    notes = models.TextField()
+    notes = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
