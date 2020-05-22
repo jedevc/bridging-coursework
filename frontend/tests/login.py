@@ -57,16 +57,16 @@ class LoginTest(StaticLiveServerTestCase):
 
         # The user is now logged in
         token = self.browser.execute_script("return window.localStorage.getItem('token');");
-        self.assertEquals(token, self.token.key)
+        self.assertEquals(token, f'"{self.token.key}"')
 
     def test_logout(self):
         # The site creator is already logged in
         self.browser.get(self.live_server_url)
-        self.browser.execute_script(f"window.localStorage.setItem('token', '{self.token}');");
+        self.browser.execute_script(f"window.localStorage.setItem('token', '\"{self.token}\"');");
 
         # Sanity check: the user is actually logged in
         token = self.browser.execute_script("return window.localStorage.getItem('token');");
-        self.assertEquals(token, self.token.key)
+        self.assertEquals(token, f'"{self.token.key}"')
 
         # The site creator navigates to the home page
         self.browser.get(self.live_server_url)
@@ -77,4 +77,4 @@ class LoginTest(StaticLiveServerTestCase):
 
         # The user is now logged-out
         token = self.browser.execute_script("return window.localStorage.getItem('token');");
-        self.assertNotEquals(token, self.token.key)
+        self.assertEquals(token, '""')

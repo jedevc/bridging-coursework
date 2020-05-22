@@ -59,7 +59,7 @@ class PostTest(StaticLiveServerTestCase):
     def test_post_create(self):
         # The site creator is already logged in
         self.browser.get(self.live_server_url + '/blog')
-        self.browser.execute_script(f"window.localStorage.setItem('token', '{self.token}');");
+        self.browser.execute_script(f"window.localStorage.setItem('token', '\"{self.token}\"');");
 
         # The site creator navigates to the post creation page
         self.browser.get(self.live_server_url + '/blog/new')
