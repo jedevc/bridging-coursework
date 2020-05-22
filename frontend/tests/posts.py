@@ -38,9 +38,8 @@ class PostTest(StaticLiveServerTestCase):
         with self.assertRaises(NoSuchElementException):
             self.browser.find_element_by_name("password")
 
-        # The creator clicks the new button
-        button = self.browser.find_element_by_link_text("New")
-        button.click()
+        # The creator goes to create a new blog post
+        self.browser.get(self.live_server_url + '/blog/new')
 
         # The creator is prompted to login now
         username = self.browser.find_element_by_name("username")
@@ -51,6 +50,8 @@ class PostTest(StaticLiveServerTestCase):
         username.send_keys("admin")
         password.send_keys("admin")
         submit.click()
+
+        time.sleep(1)
 
         # The login prompt disappears
         with self.assertRaises(NoSuchElementException):

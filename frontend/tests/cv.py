@@ -66,6 +66,8 @@ class CvTest(StaticLiveServerTestCase):
         password.send_keys("admin")
         submit.click()
 
+        time.sleep(1)
+
         # The login prompt disappears
         with self.assertRaises(NoSuchElementException):
             self.browser.find_element_by_name("username")

@@ -44,12 +44,14 @@ class LoginTest(StaticLiveServerTestCase):
         # The creator is prompted to login now
         username = self.browser.find_element_by_name("username")
         password = self.browser.find_element_by_name("password")
-        submit = self.browser.find_element_by_xpath('//button[text()="Submit"]')
+        submit = self.browser.find_element_by_xpath('//*[text()="Submit"]')
 
         # The creator logs in
         username.send_keys("admin")
         password.send_keys("admin")
         submit.click()
+
+        time.sleep(1)
 
         # The login prompt disappears
         with self.assertRaises(NoSuchElementException):
