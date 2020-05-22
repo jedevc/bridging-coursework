@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { lister } from "../utils/api";
 
 import ContentContainer from '../components/ContentContainer';
+import useLocalStorage from "../hooks/useLocalStorage";
 
 export default function Portfolio() {
   const [education, setEducation] = useState([]);
@@ -11,6 +12,7 @@ export default function Portfolio() {
   const [work, setWork] = useState([]);
   const [volunteering, setVolunteering] = useState([]);
   const [awards, setAwards] = useState([]);
+  const [token] = useLocalStorage("token", "");
 
   useEffect(() => {
     document.title = "jedevc | CV";
@@ -102,11 +104,7 @@ export default function Portfolio() {
     <section className="section">
       <ContentContainer>
         <div className="box">
-          <Link to="/cv/edit" className="has-text-black is-pulled-right">
-            <span className="icon is-medium">
-              <i className="fa fa-lg fa-edit" aria-hidden="true"></i>
-            </span>
-          </Link>
+          {token && token.length > 0 ? <PortfolioEditLink /> : null}
 
           <h1 className="title">Justin Chadwell</h1>
           <h2 className="subtitle">Smethwick, West Midlands UK</h2>
@@ -168,4 +166,14 @@ function Notes(props) {
     </li>
   ));
   return notes;
+}
+
+function PortfolioEditLink() {
+  return (
+    <Link to="/cv/edit" className="has-text-black is-pulled-right">
+      <span className="icon is-medium">
+        <i className="fa fa-lg fa-edit" aria-hidden="true"></i>
+      </span>
+    </Link>
+  );
 }

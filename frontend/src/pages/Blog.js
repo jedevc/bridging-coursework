@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 
 import { PostHeader } from "../components/Post";
 import { lister } from "../utils/api";
+import useLocalStorage from '../hooks/useLocalStorage';
 
 export default function Blog() {
   const [posts, setPosts] = useState([]);
+  const [token] = useLocalStorage("token", "");
 
   useEffect(() => {
     document.title = "jedevc | Blog";
@@ -30,12 +32,7 @@ export default function Blog() {
       <div className="container">
         {items}
 
-        <Link to="/blog/new" className="button is-primary is-pulled-right">
-          <span className="icon">
-            <i className="fa fa-plus-circle"></i>
-          </span>
-          <span>New</span>
-        </Link>
+        {token && token.length > 0 ? <NewPostButton /> : null}
       </div>
     </section>
   )
@@ -48,5 +45,16 @@ function PostPreview(props) {
 
       <p>{props.post.summary}</p>
     </div>
+  )
+}
+
+function NewPostButton() {
+  return (
+    <Link to="/blog/new" className="button is-primary is-pulled-right">
+      <span className="icon">
+        <i className="fa fa-plus-circle"></i>
+      </span>
+      <span>New</span>
+    </Link>
   )
 }

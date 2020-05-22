@@ -53,9 +53,8 @@ class CvTest(StaticLiveServerTestCase):
         with self.assertRaises(NoSuchElementException):
             self.browser.find_element_by_name("password")
 
-        # The creator clicks the edit button
-        button = self.browser.find_element_by_xpath('//a[contains(@href, "/cv/edit")]')
-        button.click()
+        # The creator goes to the cv editor
+        self.browser.get(self.live_server_url + '/cv/edit')
 
         # The creator is prompted to login now
         username = self.browser.find_element_by_name("username")
