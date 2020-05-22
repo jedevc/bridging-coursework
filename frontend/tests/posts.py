@@ -14,7 +14,9 @@ class PostTest(StaticLiveServerTestCase):
     def setUp(self):
         super().setUpClass()
 
-        self.browser = webdriver.Firefox()
+        options = webdriver.FirefoxOptions()
+        options.set_headless()
+        self.browser = webdriver.Firefox(options=options)
         self.browser.implicitly_wait(1)
 
         self.user = User.objects.create_superuser(
