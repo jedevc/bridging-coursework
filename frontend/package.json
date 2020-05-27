@@ -1,15 +1,12 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
     "dev": "webpack --mode development --watch",
     "build": "webpack --mode production"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Justin Chadwell",
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
@@ -25,7 +22,6 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.0",
     "bulma": "^0.8.2",
     "react-markdown": "^4.3.1",
     "react-router-dom": "^5.2.0",
