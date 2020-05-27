@@ -43,9 +43,9 @@ export default function Portfolio() {
       <ContentContainer>
         <Auth />
         <SectionEditor type="cv/education" name="Education" spec={educationSpec} />
+        <SectionEditor type="cv/projects" name="Projects" spec={projectSpec} />
         <SectionEditor type="cv/work" name="Work" spec={workSpec} />
         <SectionEditor type="cv/volunteer" name="Volunteering" spec={workSpec} />
-        <SectionEditor type="cv/projects" name="Projects" spec={projectSpec} />
         <SectionEditor type="cv/awards" name="Awards" spec={awardsSpec} />
       </ContentContainer>
     </section>
