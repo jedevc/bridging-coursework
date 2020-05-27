@@ -15,6 +15,10 @@ Install python dependencies:
 
     $ pip install -r requirements.txt
 
+Generate some development settings:
+
+    $ ./generate_env.py > .env
+
 Run the python server:
 
     $ python manage.py runserver
